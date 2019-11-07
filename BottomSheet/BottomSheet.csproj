@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <PackageId>Xamarin.Forms.Plugin.BottomSheet</PackageId>
-    <PackageVersion>1.0.0</PackageVersion>
+    <PackageVersion>0.0.1</PackageVersion>
     <Authors>Miguel Angel Barrera Muñoz</Authors>
     <Description>Control for xamarin forms</Description>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
