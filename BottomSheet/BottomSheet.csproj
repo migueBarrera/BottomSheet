@@ -9,7 +9,6 @@
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageReleaseNotes>First release</PackageReleaseNotes>
     <PackageTags>logger logging logs</PackageTags>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageTags>community, xamarin, android, xamarin.forms, ios, uwp, animations, BottomSheet, BottomSheetsdialog, dialog</PackageTags>
   </PropertyGroup>
 
