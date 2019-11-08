@@ -95,7 +95,7 @@ namespace BottomSheet
                 });
         }
 
-        private static void IsOpenChanged(Xamarin.Forms.BindableObject bindable, object oldValue, object newValue)
+        private static void IsOpenChanged(BindableObject bindable, object oldValue, object newValue)
         {
             var control = bindable as BottomSheetDialog;
             if (newValue is true)
