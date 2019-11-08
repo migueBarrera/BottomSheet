@@ -2,7 +2,7 @@
 
 namespace BottomSheet
 {
-    public class BottomSheetDialog : Grid
+    public abstract class BottomSheetDialog : Grid
     {
         public const uint ExpandAnimationSpeed = 350;
 
