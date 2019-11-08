@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<bottomSheet:BottomSheetDialog xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             xmlns:bottomSheet="clr-namespace:BottomSheet;assembly=BottomSheetXF"
+             x:Class="SampleBottomSheet.SimpleBottomSheet">
+    <bottomSheet:BottomSheetDialog.View>
+        <ContentView>
+            <StackLayout
+                BackgroundColor="LightBlue"
+                Padding="50">
+                <Label Text="HELLO, i  am a title" TextColor="Black" FontSize="Title"/>
+                <Label Text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
+                       Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown
+                       printer took a galley of type and scrambled it to make a type specimen book." 
+                       TextColor="Black"
+                       FontSize="Body"/>
+            </StackLayout>
+        </ContentView>
+    </bottomSheet:BottomSheetDialog.View>
+ 
+</bottomSheet:BottomSheetDialog>
