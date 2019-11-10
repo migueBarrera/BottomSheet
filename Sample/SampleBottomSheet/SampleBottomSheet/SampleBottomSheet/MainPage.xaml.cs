@@ -19,7 +19,6 @@ namespace SampleBottomSheet
             InitializeComponent();
 
             ViewModel = new MainViewModel();
-
             BindingContext = ViewModel;
         }
 
@@ -29,6 +28,11 @@ namespace SampleBottomSheet
             if (SimpleBottomSheet.ParentHeight == 0)
             {
                 SimpleBottomSheet.ParentHeight = height;
+            }
+            
+            if (ToastBottomSheet.ParentHeight == 0)
+            {
+                ToastBottomSheet.ParentHeight = height;
             }
         }
 

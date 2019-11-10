@@ -1,8 +1,9 @@
-﻿using Xamarin.Forms;
+﻿using System;
+using Xamarin.Forms;
 
 namespace BottomSheet
 {
-    public abstract class BottomSheetDialog : Grid
+    public abstract class BaseBottomSheet : Grid
     {
         public const uint ExpandAnimationSpeed = 350;
 
@@ -12,21 +13,25 @@ namespace BottomSheet
 
         private double parentHeight;
 
+        public EventHandler OpenEvent;
+
+        public EventHandler CloseEvent;
+
         public static readonly BindableProperty ViewProperty = BindableProperty.Create(
             propertyName: nameof(View),
             returnType: typeof(ContentView),
-            declaringType: typeof(BottomSheetDialog),
+            declaringType: typeof(BaseBottomSheet),
             defaultValue: null);
 
         public static readonly BindableProperty IsOpenProperty =
             BindableProperty.Create(
                 nameof(IsOpen),
                 typeof(bool),
-                typeof(BottomSheetDialog),
+                typeof(BaseBottomSheet),
                 false,
-                BindingMode.OneWay,
+                BindingMode.TwoWay,
                 null,
-                propertyChanged: IsOpenChanged);
+                propertyChanged: TitleChanged);
 
         public ContentView View
         {
@@ -82,6 +87,7 @@ namespace BottomSheet
                    await this.TranslateTo(0, 0, ExpandAnimationSpeed, Easing.SinInOut);
                    await Fade.FadeTo(1, ExpandAnimationSpeed * 2, Easing.SinInOut);
                });
+            OpenEvent?.Invoke(this, null);
         }
 
         public void Close(double height)
@@ -93,11 +99,12 @@ namespace BottomSheet
                     await Fade.FadeTo(0, CollapseAnimationSpeed / 2, Easing.SinInOut);
                     await this.TranslateTo(0, height, CollapseAnimationSpeed, Easing.SinInOut);
                 });
+            CloseEvent?.Invoke(this, null);
         }
 
-        private static void IsOpenChanged(BindableObject bindable, object oldValue, object newValue)
+        private static void TitleChanged(BindableObject bindable, object oldValue, object newValue)
         {
-            var control = bindable as BottomSheetDialog;
+            var control = bindable as BaseBottomSheet;
             if (newValue is true)
             {
                 control.Open();

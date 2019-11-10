@@ -5,6 +5,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:local="clr-namespace:SampleBottomSheet"
              mc:Ignorable="d"
+             xmlns:bottomSheet="clr-namespace:BottomSheetXF;assembly=BottomSheetXF"
              x:Class="SampleBottomSheet.MainPage">
 
     <Grid>
@@ -15,7 +16,24 @@
             <Button Text="Click Me!" Command="{Binding ClickCommand}"/>
         </StackLayout>
 
-        <local:SimpleBottomSheet x:Name="SimpleBottomSheet" IsOpen="{Binding IsOpen}"/>
+        <!--<local:CustomBottomSheet x:Name="SimpleBottomSheet" IsOpen="{Binding IsOpen}"/>-->
+
+        <bottomSheet:SimpleBottomSheet 
+            x:Name="SimpleBottomSheet" 
+            Title="Hello" 
+            Body="HELLOO " 
+            MainPadding="20"
+            IsOpen="{Binding IsOpen2}"
+            MainColor="Blue"/>
+
+        <bottomSheet:ToastBottomSheet 
+            x:Name="ToastBottomSheet"
+            Title="Hollaaa"
+            MainColor="Red"
+            Icon="round_warning_black_24"
+            Duration="4000"
+            MainPadding="20"
+            IsOpen="{Binding IsOpen}"/>
     </Grid>
 
 </ContentPage>
