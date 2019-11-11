@@ -27,13 +27,13 @@ stages:
       displayName: "NuGet Restore"
       inputs:
         command: restore
-        projects: '**/*.csproj'
+        projects: './BottomSheet/*.csproj'
     
     - task: DotNetCoreCLI@2
       displayName: "Build Solution"
       inputs:
         command: build
-        projects: '**/*.csproj'
+        projects: './BottomSheet/*.csproj'
         arguments: '--configuration $(buildConfiguration)'
 
     - task: DotNetCoreCLI@2
