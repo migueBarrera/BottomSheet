@@ -40,7 +40,7 @@ stages:
       displayName: 'Create NuGet Package - Release Version'
       inputs:
         command: pack
-        packDirectory: '$(Build.ArtifactStagingDirectory)/packages/releases'
+        packDirectory: './BottomSheet/BottomSheetXF.csproj'
         arguments: '--configuration $(buildConfiguration)'
         nobuild: true
 
