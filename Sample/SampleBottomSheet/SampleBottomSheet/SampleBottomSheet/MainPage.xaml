@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:SampleBottomSheet"
+             mc:Ignorable="d"
+             xmlns:bottomSheet="clr-namespace:BottomSheetXF;assembly=BottomSheetXF"
+             x:Class="SampleBottomSheet.MainPage">
+
+    <Grid>
+        <Grid.GestureRecognizers>
+            <SwipeGestureRecognizer Swiped="SwipeGestureRecognizer_Swiped" Direction="Down"/>
+        </Grid.GestureRecognizers>
+        <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
+            <Button Text="Simple BottomSheet" Command="{Binding ClickCommand}" CommandParameter="1"/>
+            <Button Text="SnackBar BottomSheet" Command="{Binding ClickCommand}" CommandParameter="2"/>
+            <Button Text="Custom BottomSheet" Command="{Binding ClickCommand}" CommandParameter="3"/>
+        </StackLayout>
+
+        <local:CustomBottomSheet x:Name="CustomBottomSheet" IsOpen="{Binding IsOpenCustom}"/>
+
+        <bottomSheet:SimpleBottomSheet 
+            x:Name="SimpleBottomSheet" 
+            Title="What is Lorem Ipsum?" 
+            Body="Lorem Ipsum is simply dummy text of the printing and typesetting 
+                industry. Lorem Ipsum has been the industry's standard dummy text ever 
+                since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book." 
+            MainPadding="20"
+            IsOpen="{Binding IsOpenSimple}"
+            MainColor="LightGreen"/>
+
+        <bottomSheet:SnackBarBottomSheet 
+            x:Name="SnackBarBottomSheet"
+            Title="Hii, i am a SnackBar with a duration"
+            MainColor="LightSkyBlue"
+            Duration="3000"
+            MainPadding="20"
+            IsOpen="{Binding IsOpenSimpleSnackBar}"/>
+    </Grid>
+
+</ContentPage>
