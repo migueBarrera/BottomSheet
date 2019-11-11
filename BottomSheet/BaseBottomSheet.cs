@@ -17,6 +17,8 @@ namespace BottomSheet
 
         public EventHandler CloseEvent;
 
+        public bool FadeBackgroundEnabled { get; set; } = true;
+
         public static readonly BindableProperty ViewProperty = BindableProperty.Create(
             propertyName: nameof(View),
             returnType: typeof(ContentView),
@@ -65,16 +67,19 @@ namespace BottomSheet
 
             RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
             RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Auto) });
-
-            Fade = new BoxView()
-            {
-                BackgroundColor = Color.FromHex("#AA000000"),
-                Opacity = 0,
-            };
-
             this.RowSpacing = 0;
-            this.Children.Add(Fade, 0, 0);
-            Grid.SetRowSpan(Fade, 2);
+
+            if (FadeBackgroundEnabled)
+            {
+                Fade = new BoxView()
+                {
+                    BackgroundColor = Color.FromHex("#AA000000"),
+                    Opacity = 0,
+                };
+                this.Children.Add(Fade, 0, 0);
+                Grid.SetRowSpan(Fade, 2);
+            }
+
             this.Children.Add(this.View, 0, 1);
         }
 
@@ -85,7 +90,10 @@ namespace BottomSheet
                =>
                {
                    await this.TranslateTo(0, 0, ExpandAnimationSpeed, Easing.SinInOut);
-                   await Fade.FadeTo(1, ExpandAnimationSpeed * 2, Easing.SinInOut);
+                   if (FadeBackgroundEnabled)
+                   {
+                       await Fade.FadeTo(1, ExpandAnimationSpeed * 2, Easing.SinInOut);
+                   }
                });
             OpenEvent?.Invoke(this, null);
         }
@@ -96,7 +104,10 @@ namespace BottomSheet
                 async ()
                 =>
                 {
-                    await Fade.FadeTo(0, CollapseAnimationSpeed / 2, Easing.SinInOut);
+                    if (FadeBackgroundEnabled)
+                    {
+                        await Fade.FadeTo(0, CollapseAnimationSpeed / 2, Easing.SinInOut);
+                    }
                     await this.TranslateTo(0, height, CollapseAnimationSpeed, Easing.SinInOut);
                 });
             CloseEvent?.Invoke(this, null);

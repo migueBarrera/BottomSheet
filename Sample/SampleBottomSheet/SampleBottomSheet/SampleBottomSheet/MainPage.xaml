@@ -13,27 +13,30 @@
             <SwipeGestureRecognizer Swiped="SwipeGestureRecognizer_Swiped" Direction="Down"/>
         </Grid.GestureRecognizers>
         <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
-            <Button Text="Click Me!" Command="{Binding ClickCommand}"/>
+            <Button Text="Simple BottomSheet" Command="{Binding ClickCommand}" CommandParameter="1"/>
+            <Button Text="SnackBar BottomSheet" Command="{Binding ClickCommand}" CommandParameter="2"/>
+            <Button Text="Custom BottomSheet" Command="{Binding ClickCommand}" CommandParameter="3"/>
         </StackLayout>
 
-        <!--<local:CustomBottomSheet x:Name="SimpleBottomSheet" IsOpen="{Binding IsOpen}"/>-->
+        <local:CustomBottomSheet x:Name="CustomBottomSheet" IsOpen="{Binding IsOpenCustom}"/>
 
         <bottomSheet:SimpleBottomSheet 
             x:Name="SimpleBottomSheet" 
-            Title="Hello" 
-            Body="HELLOO " 
+            Title="What is Lorem Ipsum?" 
+            Body="Lorem Ipsum is simply dummy text of the printing and typesetting 
+                industry. Lorem Ipsum has been the industry's standard dummy text ever 
+                since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book." 
             MainPadding="20"
-            IsOpen="{Binding IsOpen2}"
-            MainColor="Blue"/>
+            IsOpen="{Binding IsOpenSimple}"
+            MainColor="LightGreen"/>
 
-        <bottomSheet:ToastBottomSheet 
-            x:Name="ToastBottomSheet"
-            Title="Hollaaa"
-            MainColor="Red"
-            Icon="round_warning_black_24"
-            Duration="4000"
+        <bottomSheet:SnackBarBottomSheet 
+            x:Name="SnackBarBottomSheet"
+            Title="Hii, i am a SnackBar with a duration"
+            MainColor="LightSkyBlue"
+            Duration="3000"
             MainPadding="20"
-            IsOpen="{Binding IsOpen}"/>
+            IsOpen="{Binding IsOpenSimpleSnackBar}"/>
     </Grid>
 
 </ContentPage>

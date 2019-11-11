@@ -5,10 +5,9 @@ using Xamarin.Forms;
 
 namespace BottomSheetXF
 {
-    public class ToastBottomSheet : BaseBottomSheet
+    public class SnackBarBottomSheet : BaseBottomSheet
     {
         private Label TitleLabel;
-        private Image Image;
 
         private StackLayout RootLayout;
 
@@ -16,27 +15,17 @@ namespace BottomSheetXF
             BindableProperty.Create(
                 nameof(Title),
                 typeof(string),
-                typeof(ToastBottomSheet),
+                typeof(SnackBarBottomSheet),
                 string.Empty,
                 BindingMode.OneWay,
                 null,
                 propertyChanged: TitleChanged);
 
-        public static readonly BindableProperty IconProperty =
-            BindableProperty.Create(
-                nameof(Icon),
-                typeof(ImageSource),
-                typeof(ToastBottomSheet),
-                null,
-                BindingMode.OneWay,
-                null,
-                propertyChanged: IconChanged);
-
         public static readonly BindableProperty MainColorProperty =
             BindableProperty.Create(
                 nameof(MainColor),
                 typeof(Color),
-                typeof(ToastBottomSheet),
+                typeof(SnackBarBottomSheet),
                 Color.White,
                 BindingMode.OneWay,
                 null,
@@ -57,7 +46,7 @@ namespace BottomSheetXF
             BindableProperty.Create(
                 nameof(Duration),
                 typeof(int),
-                typeof(ToastBottomSheet),
+                typeof(SnackBarBottomSheet),
                 1000,
                 BindingMode.OneWay,
                 null);
@@ -74,12 +63,6 @@ namespace BottomSheetXF
             set => SetValue(DurationProperty, value);
         }
 
-        public ImageSource Icon
-        {
-            get => (ImageSource)GetValue(IconProperty);
-            set => SetValue(IconProperty, value);
-        }
-
         public Thickness MainPadding
         {
             get => (Thickness)GetValue(MainPaddingProperty);
@@ -92,8 +75,9 @@ namespace BottomSheetXF
             set => SetValue(MainColorProperty, value);
         }
 
-        public ToastBottomSheet()
+        public SnackBarBottomSheet()
         {
+            FadeBackgroundEnabled = false;
             this.TitleLabel = new Label();
 
             RootLayout = new StackLayout()
@@ -102,12 +86,6 @@ namespace BottomSheetXF
                 BackgroundColor = MainColor,
                 Padding = MainPadding,
             };
-
-            Image = new Image()
-            {
-                Source = Icon,
-            };
-            RootLayout.Children.Add(Image);
 
             RootLayout.Children.Add(TitleLabel);
 
@@ -127,33 +105,20 @@ namespace BottomSheetXF
 
         private static void TitleChanged(BindableObject bindable, object oldValue, object newValue)
         {
-            var control = (ToastBottomSheet)bindable;
+            var control = (SnackBarBottomSheet)bindable;
             control.TitleLabel.Text = newValue as string;
         }
 
         private static void MainColorChanged(BindableObject bindable, object oldValue, object newValue)
         {
-            var control = (ToastBottomSheet)bindable;
+            var control = (SnackBarBottomSheet)bindable;
             control.RootLayout.BackgroundColor = (Color)newValue;
         }
 
         private static void MainPaddingChanged(BindableObject bindable, object oldValue, object newValue)
         {
-            var control = (ToastBottomSheet)bindable;
+            var control = (SnackBarBottomSheet)bindable;
             control.RootLayout.Padding = (Thickness)newValue;
-        }
-
-
-        private static void IconChanged(BindableObject bindable, object oldValue, object newValue)
-        {
-            var control = (ToastBottomSheet)bindable;
-            Device.BeginInvokeOnMainThread(
-               ()
-               =>
-               {
-                   control.Image.Source = (ImageSource)newValue;
-               });
-
         }
     }
 }

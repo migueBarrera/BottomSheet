@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
 using Xamarin.Forms;
 
 namespace SampleBottomSheet
@@ -30,15 +25,22 @@ namespace SampleBottomSheet
                 SimpleBottomSheet.ParentHeight = height;
             }
             
-            if (ToastBottomSheet.ParentHeight == 0)
+            if (CustomBottomSheet.ParentHeight == 0)
             {
-                ToastBottomSheet.ParentHeight = height;
+                CustomBottomSheet.ParentHeight = height;
+            }
+            
+            if (SnackBarBottomSheet.ParentHeight == 0)
+            {
+                SnackBarBottomSheet.ParentHeight = height;
             }
         }
 
         private void SwipeGestureRecognizer_Swiped(object sender, SwipedEventArgs e)
         {
-            ViewModel.IsOpen = false;
+            ViewModel.IsOpenCustom = false;
+            ViewModel.IsOpenSimpleSnackBar = false;
+            ViewModel.IsOpenSimple = false;
         }
     }
 }
