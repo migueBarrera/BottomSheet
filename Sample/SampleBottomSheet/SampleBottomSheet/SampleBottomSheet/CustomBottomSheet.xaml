@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<bottomSheet:BaseBottomSheet xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             xmlns:bottomSheet="clr-namespace:BottomSheet;assembly=BottomSheetXF"
+                             xmlns:panacake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+                             x:Class="SampleBottomSheet.CustomBottomSheet">
+    <bottomSheet:BaseBottomSheet.View>
+        <ContentView>
+            <panacake:PancakeView CornerRadius="26,26,0,0" BackgroundColor="LightBlue">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Image Source="https://pbs.twimg.com/media/D81zcZEXkAEdsoQ.png" HeightRequest="120" WidthRequest="120" Grid.RowSpan="2" Margin="8"/>
+                    
+                    <StackLayout Grid.Row="0" Orientation="Vertical" Grid.Column="1"
+                                 Padding="8">
+                        <Label Text="Piggy Vader" 
+                               FontSize="Title"
+                               TextColor="Black"/>
+                        <Label 
+                            FontSize="Body"
+                            Text="Lorem Ipsum is simply dummy text of the printing and typesetting 
+                                industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."/>
+                    </StackLayout>
+                    <Button Grid.Row="1" Grid.ColumnSpan="2" Margin="8" Text="Click Me!" HorizontalOptions="Center" Clicked="Button_Clicked"  CornerRadius="24"/>
+                </Grid>
+            </panacake:PancakeView>
+        </ContentView>
+    </bottomSheet:BaseBottomSheet.View>
+ 
+</bottomSheet:BaseBottomSheet>
