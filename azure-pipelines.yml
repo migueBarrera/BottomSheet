@@ -27,19 +27,21 @@ stages:
       displayName: "NuGet Restore"
       inputs:
         command: restore
-        projects: '**/*.csproj'
+        projects: './BottomSheet/BottomSheetXF.csproj'
     
     - task: DotNetCoreCLI@2
       displayName: "Build Solution"
       inputs:
         command: build
-        projects: '**/*.csproj'
+        projects: './BottomSheet/BottomSheetXF.csproj'
         arguments: '--configuration $(buildConfiguration)'
 
     - task: DotNetCoreCLI@2
       displayName: 'Create NuGet Package - Release Version'
       inputs:
         command: pack
+        projects: './BottomSheet/BottomSheetXF.csproj'
+        packagesToPack: './BottomSheet/BottomSheetXF.csproj'
         packDirectory: '$(Build.ArtifactStagingDirectory)/packages/releases'
         arguments: '--configuration $(buildConfiguration)'
         nobuild: true
