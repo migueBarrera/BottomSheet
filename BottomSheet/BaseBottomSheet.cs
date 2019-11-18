@@ -1,4 +1,6 @@
-﻿using System;
+﻿using BottomSheetXF;
+using System;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace BottomSheet
@@ -11,13 +13,15 @@ namespace BottomSheet
 
         private BoxView Fade;
 
-        private double parentHeight;
-
         public EventHandler OpenEvent;
 
         public EventHandler CloseEvent;
 
         public bool FadeBackgroundEnabled { get; set; } = true;
+
+        public Movements Movement { get; set; } = Movements.BottomUp;
+
+        public Positions ContentPosition { get; set; } = Positions.Bottom;
 
         public static readonly BindableProperty ViewProperty = BindableProperty.Create(
             propertyName: nameof(View),
@@ -35,6 +39,16 @@ namespace BottomSheet
                 null,
                 propertyChanged: TitleChanged);
 
+        public static readonly BindableProperty FadeColorProperty =
+            BindableProperty.Create(
+                nameof(FadeColor),
+                typeof(Color),
+                typeof(BaseBottomSheet),
+                Color.FromHex("#AA000000"),
+                BindingMode.OneWay,
+                null,
+                propertyChanged: FadeColorChanged);
+
         public ContentView View
         {
             get => (ContentView)GetValue(ViewProperty);
@@ -47,40 +61,84 @@ namespace BottomSheet
             set { SetValue(IsOpenProperty, value); }
         }
 
-        public double ParentHeight
+        public Color FadeColor
         {
-            get
-            {
-                return parentHeight;
-            }
-
-            set
-            {
-                parentHeight = value;
-                this.TranslationY = parentHeight;
-            }
+            get { return (Color)GetValue(FadeColorProperty); }
+            set { SetValue(FadeColorProperty, value); }
         }
+
+        public double ParentHeight { get; set; }
+
+        public double ParentWidh { get; set; }
+
+        public bool IsInitiated => ParentHeight > 0 && ParentWidh > 0;
 
         protected override void OnBindingContextChanged()
         {
             base.OnBindingContextChanged();
 
-            RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
-            RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Auto) });
-            this.RowSpacing = 0;
+            switch (ContentPosition)
+            {
+                case Positions.Bottom:
+                    this.RowSpacing = 0;
+                    RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
+                    RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Auto) });
+                    break;
+                case Positions.Top:
+                    this.RowSpacing = 0;
+                    RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Auto) });
+                    RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
+                    break;
+                case Positions.Left:
+                    this.ColumnSpacing = 0;
+                    ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Auto) });
+                    ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+                    break;
+                case Positions.Right:
+                    this.ColumnSpacing = 0;
+                    ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+                    ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Auto) });
+                    break;
+                default:
+                    throw new SystemException($"{nameof(ContentPosition)} can not be null");
+            }
+
 
             if (FadeBackgroundEnabled)
             {
                 Fade = new BoxView()
                 {
-                    BackgroundColor = Color.FromHex("#AA000000"),
+                    BackgroundColor = FadeColor,
                     Opacity = 0,
                 };
                 this.Children.Add(Fade, 0, 0);
-                Grid.SetRowSpan(Fade, 2);
+                if (ContentPosition == Positions.Bottom || ContentPosition == Positions.Top)
+                {
+                    Grid.SetRowSpan(Fade, 2);
+                }
+                else
+                {
+                    Grid.SetColumnSpan(Fade, 2);
+                }
             }
 
-            this.Children.Add(this.View, 0, 1);
+            switch (ContentPosition)
+            {
+                case Positions.Bottom:
+                    this.Children.Add(this.View, 0, 1);
+                    break;
+                case Positions.Top:
+                    this.Children.Add(this.View, 0, 0);
+                    break;
+                case Positions.Left:
+                    this.Children.Add(this.View, 0, 0);
+                    break;
+                case Positions.Right:
+                    this.Children.Add(this.View, 1, 0);
+                    break;
+                default:
+                    throw new SystemException($"{nameof(ContentPosition)} can not be null");
+            }
         }
 
         public void Open()
@@ -89,7 +147,7 @@ namespace BottomSheet
                async ()
                =>
                {
-                   await this.TranslateTo(0, 0, ExpandAnimationSpeed, Easing.SinInOut);
+                   await TranslateToOpen();
                    if (FadeBackgroundEnabled)
                    {
                        await Fade.FadeTo(1, ExpandAnimationSpeed * 2, Easing.SinInOut);
@@ -98,7 +156,7 @@ namespace BottomSheet
             OpenEvent?.Invoke(this, null);
         }
 
-        public void Close(double height)
+        public void Close()
         {
             Device.BeginInvokeOnMainThread(
                 async ()
@@ -108,7 +166,7 @@ namespace BottomSheet
                     {
                         await Fade.FadeTo(0, CollapseAnimationSpeed / 2, Easing.SinInOut);
                     }
-                    await this.TranslateTo(0, height, CollapseAnimationSpeed, Easing.SinInOut);
+                    await TranslateToClose();
                 });
             CloseEvent?.Invoke(this, null);
         }
@@ -122,7 +180,79 @@ namespace BottomSheet
             }
             else
             {
-                control.Close(control.ParentHeight);
+                control.Close();
+            }
+        }
+
+        private static void FadeColorChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            var control = bindable as BaseBottomSheet;
+            control.Fade.BackgroundColor = (Color)newValue;
+        }
+
+        public void Init(double parentHeight, double parentWidh)
+        {
+            ParentHeight = parentHeight;
+            ParentWidh = parentWidh;
+
+            if ((Movement == Movements.BottomUp || Movement == Movements.TopBottom) && ParentHeight <= 0)
+            {
+                throw new SystemException($"{nameof(ParentHeight)} is required if {nameof(Movement)} is TOP or BOTTOM");
+            }
+
+            if ((Movement == Movements.LeftRight || Movement == Movements.RightLeft) && ParentWidh <= 0)
+            {
+                throw new SystemException($"{nameof(ParentWidh)} is required if {nameof(Movement)} is LEFT or RIGHT");
+            }
+
+            switch (Movement)
+            {
+                case Movements.BottomUp:
+                    this.TranslationY = ParentHeight;
+                    break;
+                case Movements.TopBottom:
+                    this.TranslationY = -ParentHeight;
+                    break;
+                case Movements.LeftRight:
+                    this.TranslationX = -ParentWidh;
+                    break;
+                case Movements.RightLeft:
+                    this.TranslationX = ParentWidh;
+                    break;
+            }
+        }
+
+        internal Task TranslateToClose()
+        {
+            switch (Movement)
+            {
+                case Movements.BottomUp:
+                    return this.TranslateTo(0, ParentHeight, CollapseAnimationSpeed, Easing.SinInOut);
+                case Movements.TopBottom:
+                    return this.TranslateTo(0, -ParentHeight, CollapseAnimationSpeed, Easing.SinInOut);
+                case Movements.LeftRight:
+                    return this.TranslateTo(-ParentWidh, 0, CollapseAnimationSpeed, Easing.SinInOut);
+                case Movements.RightLeft:
+                    return this.TranslateTo(ParentWidh, 0, CollapseAnimationSpeed, Easing.SinInOut);
+                default:
+                    throw new SystemException($"{nameof(Movement)} can not be null");
+            }
+        }
+
+        internal Task TranslateToOpen()
+        {
+            switch (Movement)
+            {
+                case Movements.BottomUp:
+                    return this.TranslateTo(0, 0, ExpandAnimationSpeed, Easing.SinInOut);
+                case Movements.TopBottom:
+                    return this.TranslateTo(0, 0, ExpandAnimationSpeed, Easing.SinInOut);
+                case Movements.LeftRight:
+                    return this.TranslateTo(0, 0, ExpandAnimationSpeed, Easing.SinInOut);
+                case Movements.RightLeft:
+                    return this.TranslateTo(0, 0, ExpandAnimationSpeed, Easing.SinInOut);
+                default:
+                    throw new SystemException($"{nameof(Movement)} can not be null");
             }
         }
     }

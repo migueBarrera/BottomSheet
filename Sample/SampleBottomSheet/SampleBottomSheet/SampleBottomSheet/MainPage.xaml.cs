@@ -20,19 +20,25 @@ namespace SampleBottomSheet
         protected override void OnSizeAllocated(double width, double height)
         {
             base.OnSizeAllocated(width, height);
-            if (SimpleBottomSheet.ParentHeight == 0)
+            
+            if (!SnackBarBottomSheet.IsInitiated)
             {
-                SimpleBottomSheet.ParentHeight = height;
+                SnackBarBottomSheet.Init(height, width);
             }
             
-            if (CustomBottomSheet.ParentHeight == 0)
+            if (!CustomBottomSheet.IsInitiated)
             {
-                CustomBottomSheet.ParentHeight = height;
+                CustomBottomSheet.Init(height, width);
             }
             
-            if (SnackBarBottomSheet.ParentHeight == 0)
+            if (!SimpleBottomSheet.IsInitiated)
             {
-                SnackBarBottomSheet.ParentHeight = height;
+                SimpleBottomSheet.Init(height, width);
+            }
+            
+            if (!LeftCustomBottomSheet.IsInitiated)
+            {
+                LeftCustomBottomSheet.Init(height, width);
             }
         }
 
@@ -41,6 +47,7 @@ namespace SampleBottomSheet
             ViewModel.IsOpenCustom = false;
             ViewModel.IsOpenSimpleSnackBar = false;
             ViewModel.IsOpenSimple = false;
+            ViewModel.IsOpenLeftCustom = false;
         }
     }
 }

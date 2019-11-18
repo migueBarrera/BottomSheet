@@ -9,7 +9,7 @@
                              x:Class="SampleBottomSheet.CustomBottomSheet">
     <bottomSheet:BaseBottomSheet.View>
         <ContentView>
-            <panacake:PancakeView CornerRadius="26,26,0,0" BackgroundColor="LightBlue">
+            <panacake:PancakeView CornerRadius="0,0,26,26" BackgroundColor="LightBlue">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>

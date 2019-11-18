@@ -16,9 +16,14 @@
             <Button Text="Simple BottomSheet" Command="{Binding ClickCommand}" CommandParameter="1"/>
             <Button Text="SnackBar BottomSheet" Command="{Binding ClickCommand}" CommandParameter="2"/>
             <Button Text="Custom BottomSheet" Command="{Binding ClickCommand}" CommandParameter="3"/>
+            <Button Text="Left Custom BottomSheet" Command="{Binding ClickCommand}" CommandParameter="4"/>
         </StackLayout>
 
-        <local:CustomBottomSheet x:Name="CustomBottomSheet" IsOpen="{Binding IsOpenCustom}"/>
+      <local:CustomBottomSheet 
+          x:Name="CustomBottomSheet" 
+          IsOpen="{Binding IsOpenCustom}"
+          ContentPosition="Top"
+          Movement="TopBottom"/>
 
         <bottomSheet:SimpleBottomSheet 
             x:Name="SimpleBottomSheet" 
@@ -36,7 +41,15 @@
             MainColor="LightSkyBlue"
             Duration="3000"
             MainPadding="20"
+            ContentPosition="Top"
+            Movement="TopBottom"
             IsOpen="{Binding IsOpenSimpleSnackBar}"/>
+
+        <local:LeftCustomBottomSheet 
+            x:Name="LeftCustomBottomSheet" 
+             IsOpen="{Binding IsOpenLeftCustom}"
+          ContentPosition="Left"
+          Movement="LeftRight"/>
     </Grid>
 
 </ContentPage>

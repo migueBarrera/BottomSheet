@@ -30,6 +30,13 @@ namespace SampleBottomSheet
             get => isOpenCustom;
             set => SetAndRaisePropertyChanged(ref isOpenCustom, value);
         }
+        
+        private bool isOpenLeftCustom;
+        public bool IsOpenLeftCustom
+        {
+            get => isOpenLeftCustom;
+            set => SetAndRaisePropertyChanged(ref isOpenLeftCustom, value);
+        }
 
         public ICommand ClickCommand => new Command<string>(ClickCommandExecute);
 
@@ -47,6 +54,9 @@ namespace SampleBottomSheet
                     break;
                 case "3":
                     IsOpenCustom = true;
+                    break;
+                case "4":
+                    IsOpenLeftCustom = true;
                     break;
 
             }
