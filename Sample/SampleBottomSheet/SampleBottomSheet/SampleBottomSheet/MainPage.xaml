@@ -5,7 +5,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:local="clr-namespace:SampleBottomSheet"
              mc:Ignorable="d"
-             xmlns:bottomSheet="clr-namespace:BottomSheetXF;assembly=BottomSheetXF"
+             xmlns:bottomSheet="clr-namespace:BottomSheetXF.Implementations;assembly=BottomSheetXF"
              x:Class="SampleBottomSheet.MainPage">
 
     <Grid>

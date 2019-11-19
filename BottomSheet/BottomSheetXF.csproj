@@ -3,14 +3,14 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <PackageId>BottomSheetXF</PackageId>
-    <PackageVersion>1.0.1</PackageVersion>
+    <PackageVersion>1.1.0</PackageVersion>
     <Authors>Miguel Angel Barrera Muñoz</Authors>
     <Description>Control for xamarin forms that helps show a sliding view from below</Description>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <PackageReleaseNotes>First release</PackageReleaseNotes>
+    <PackageReleaseNotes></PackageReleaseNotes>
     <PackageProjectUrl>https://github.com/migueBarrera/BottomSheet</PackageProjectUrl>
     <RepositoryUrl>https://github.com/migueBarrera/BottomSheet</RepositoryUrl>
-    <PackageTags>community, xamarin, android, xamarin.forms, ios, uwp, BottomSheet, BottomSheetsdialog, dialog</PackageTags>
+    <PackageTags>community, xamarin, android, xamarin.forms, ios, uwp, BottomSheet, BottomSheetsdialog, dialog, snackbar</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>

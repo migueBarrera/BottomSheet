@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
-using BottomSheet;
+using BottomSheet.Core;
 using Xamarin.Forms;
 
-namespace BottomSheetXF
+namespace BottomSheetXF.Implementations
 {
     public class SnackBarBottomSheet : BaseBottomSheet
     {

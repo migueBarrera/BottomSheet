@@ -1,9 +1,9 @@
-﻿using BottomSheetXF;
+﻿using BottomSheetXF.Core;
 using System;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace BottomSheet
+namespace BottomSheet.Core
 {
     public abstract class BaseBottomSheet : Grid
     {

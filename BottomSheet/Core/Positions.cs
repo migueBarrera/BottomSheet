@@ -1,4 +1,4 @@
-﻿namespace BottomSheetXF
+﻿namespace BottomSheetXF.Core
 {
     public enum Positions
     {

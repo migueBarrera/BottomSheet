@@ -4,7 +4,7 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             xmlns:bottomSheet="clr-namespace:BottomSheet;assembly=BottomSheetXF"
+             xmlns:bottomSheet="clr-namespace:BottomSheet.Core;assembly=BottomSheetXF"
              x:Class="SampleBottomSheet.LeftCustomBottomSheet">
     <bottomSheet:BaseBottomSheet.View>
         <ContentView>
