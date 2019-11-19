@@ -4,12 +4,12 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             xmlns:bottomSheet="clr-namespace:BottomSheet;assembly=BottomSheetXF"
-                             xmlns:panacake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
-                             x:Class="SampleBottomSheet.CustomBottomSheet">
+             xmlns:bottomSheet="clr-namespace:BottomSheet.Core;assembly=BottomSheetXF"
+             xmlns:panacake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             x:Class="SampleBottomSheet.CustomBottomSheet">
     <bottomSheet:BaseBottomSheet.View>
         <ContentView>
-            <panacake:PancakeView CornerRadius="26,26,0,0" BackgroundColor="LightBlue">
+            <panacake:PancakeView CornerRadius="0,0,26,26" BackgroundColor="LightBlue">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>

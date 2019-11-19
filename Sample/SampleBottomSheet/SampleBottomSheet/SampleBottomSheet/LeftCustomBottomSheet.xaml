@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<bottomSheet:BaseBottomSheet xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             xmlns:bottomSheet="clr-namespace:BottomSheet.Core;assembly=BottomSheetXF"
+             x:Class="SampleBottomSheet.LeftCustomBottomSheet">
+    <bottomSheet:BaseBottomSheet.View>
+        <ContentView>
+            <StackLayout Orientation="Vertical" WidthRequest="110"  BackgroundColor="LightBlue">
+                <Image Source="https://pbs.twimg.com/media/D81zcZEXkAEdsoQ.png" HeightRequest="90" WidthRequest="90" Margin="8"/>
+                <Label Text="Lorem Ipsum is simply dummy text of the printing and typesetting " HorizontalTextAlignment="Center"/>
+            </StackLayout>
+        </ContentView>
+  </bottomSheet:BaseBottomSheet.View>
+</bottomSheet:BaseBottomSheet>

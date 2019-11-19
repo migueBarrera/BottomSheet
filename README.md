@@ -16,7 +16,8 @@ Install on .Net Standard Library.
 ## DEMO
 ![](https://media.giphy.com/media/co0eVhB8LxRV9n0GX4/giphy.gif)
 
-
+## DEMO - PLAY WIHT POSITONS
+![play with movements and content positions](https://media.giphy.com/media/gk3JjswtSfCHQdDJzB/giphy.gif)
 ----------
 
 
@@ -27,6 +28,9 @@ Properties
 > - IsOpen : you can open or close the popup with this property.
 > - ParentHeight : you need set the parent height to this parameter in the code behind.
 > - FadeBackgroundEnabled : hide or show a fadeBackground. DEFAULT:true
+> - FadeColor : Color of Fade. DEFAULT: #AA000000
+> - Movement : ENUM with the movement of the popup. BottomUp,TopBottom,LeftRight,RightLeft. DEFAULT: BottomUp
+> - ContentPosition : ENUM with the position of the content in the popup. Bottom,Top, Left,Right. DEFAULT: Bottom
 > - Duration: Show the Snackbar for a DURATION milliseconds. (ONLY SnackBarBottomSheet)
 
 
@@ -35,9 +39,12 @@ How use it
 
 ##xaml ##
 
-## CUSTOM BOTTOMSHEET
+CUSTOM BOTTOMSHEET
+-------------
+
 > Create you popup as ContentView.
-> Import : `xmlns:bottomSheet="clr-namespace:BottomSheet;assembly=BottomSheetXF""`
+> Import the Core.
+> Import : `xmlns:bottomSheet="clr-namespace:BottomSheet.Core;assembly=BottomSheetXF""`
 
 > Replace: replace you base ContentView to  : 
 
@@ -63,9 +70,11 @@ How use it
 ----------
 
 
-## SIMPLE BOTTOMSHEET
-> Import on your page: `xmlns:bottomSheet="clr-namespace:BottomSheet;assembly=BottomSheetXF"`
-> Use:
+SIMPLE BOTTOMSHEET
+-------------
+
+> - Import the Implementations: `xmlns:bottomSheet="clr-namespace:BottomSheet.Implementations;assembly=BottomSheetXF"`
+> - Use:
 ```xaml
         <bottomSheet:SimpleBottomSheet 
             x:Name="SimpleBottomSheet" 
@@ -81,9 +90,11 @@ How use it
 ----------
 
 
-## SNACKBAR BOTTOMSHEET
-> Import on your page: `xmlns:bottomSheet="clr-namespace:BottomSheet;assembly=BottomSheetXF"`
-> Use:
+SNACKBAR BOTTOMSHEET
+-------------
+
+> - Import the Implementations: `xmlns:bottomSheet="clr-namespace:BottomSheet.Implementations;assembly=BottomSheetXF"`
+> - Use:
 ```xaml
         <bottomSheet:SnackBarBottomSheet 
             x:Name="SnackBarBottomSheet"
@@ -95,15 +106,15 @@ How use it
 ```
 
 ## NOTE
->On the page where you go to use it, you must send the height of the page.
+> - On the page where you go to use it, you must send the height of the page.
 
 ```csharp
 protected override void OnSizeAllocated(double width, double height)
         {
             base.OnSizeAllocated(width, height);
-            if (SimpleBottomSheet.ParentHeight == 0)
+            if (!SimpleBottomSheet.IsInitiated)
             {
-                SimpleBottomSheet.ParentHeight = height;
+                SimpleBottomSheet.Init(height, width);
             }
         }
 ```
